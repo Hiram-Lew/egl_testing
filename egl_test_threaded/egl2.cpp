@@ -90,8 +90,7 @@ int main(int argc, char *argv[])
     my_EGL myegl;
 
     EGLint major, minor;
-    if (!eglInitialize(eglDpy, &major, &minor))
-        printf("Could not initialize.");
+    eglInitialize(eglDpy, &major, &minor);
 
     eglChooseConfig(eglDpy, configAttribs, &eglCfg, 1, &numConfigs);
 

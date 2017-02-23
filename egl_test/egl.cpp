@@ -42,17 +42,25 @@ int main(int argc, char *argv[])
             (PFNEGLQUERYDEVICESEXTPROC)
                     eglGetProcAddress("eglQueryDevicesEXT");
     eglQueryDevicesEXT(MAX_DEVICES, eglDevs, &numDevices);
-    //printf("Detected %i devices\n", numDevices);
+    printf("Detected %i devices\n", numDevices);
 
     PFNEGLGETPLATFORMDISPLAYEXTPROC eglGetPlatformDisplayEXT =
             (PFNEGLGETPLATFORMDISPLAYEXTPROC)
                     eglGetProcAddress("eglGetPlatformDisplayEXT");
+    printf("after eglGetProcAddress.\n");
 
     eglDpy = eglGetPlatformDisplayEXT(EGL_PLATFORM_DEVICE_EXT,
-                                          eglDevs[0], 0);
+                                          eglDevs[1], 0);
+    printf("after eglGetProcAddress 2.\n");
+
     EGLint major, minor;
 
-    eglInitialize(eglDpy, &major, &minor);
+    if (!eglInitialize(eglDpy, &major, &minor)) {
+        printf("eglInitialize failed.\n");
+        exit(1);
+    } else {
+        printf("eglInitialize success.\n");
+    }
 
     // 2. Select an appropriate configuration
     EGLint numConfigs;
